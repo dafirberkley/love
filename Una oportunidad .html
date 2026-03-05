@@ -1,0 +1,611 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Un ramo para ti</title>
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            background: #080f1a;
+            overflow: hidden;
+        }
+
+       .container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+        .glass {
+            height: 800px;
+            width: 600px;
+            background: #122139;
+            border-radius: 300px 300px 0px 0px;
+        }
+
+        .glass:before {
+            content: "";
+            height: 40px;
+            width: 40px;
+            transform-origin: center;
+            border: 25px solid #122139;
+            border-radius: 100%;
+            position: absolute;
+            left: 256px;
+            top: -74px;
+        }
+
+        .glass:after {
+            content: "";
+            position: absolute;
+            height: 15px;
+            width: 600px;
+            background: #a52a2a;
+            top: 100%;
+            left: 0%;
+        }
+
+        .shine {
+            width: 26px;
+            height: 330px;
+            background: white;
+            opacity: 0.2;
+            position: absolute;
+            left: 85%;
+            top: 200px;
+            border-radius: 100px;
+            z-index: 10;
+        }
+
+        .shine:before {
+            content: "";
+            width: 26px;
+            height: 40px;
+            position: absolute;
+            background: white;
+            top: 365px;
+            border-radius: 100px;
+        }
+
+        .petals>div {
+            position: absolute;
+            background: #05c5f5;
+            width: 85px;
+            height: 120px;
+            top: 200px;
+            transition: all 0.5s ease-out;
+        }
+
+        .petals>div:nth-child(1) {
+            border-radius: 15px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, 1);
+            left: 268px;
+            top: 200px;
+            background: #05c5f5;
+        }
+
+        .petals>div:nth-child(2),
+        .petals>div:nth-child(4),
+        .petals>div:nth-child(6) {
+            background: #05c5f5;
+            left: 230px;
+            border-radius: 0px 50px 0px 50px;
+            transform-origin: bottom right;
+        }
+
+        .petals>div:nth-child(3),
+        .petals>div:nth-child(5),
+        .petals>div:nth-child(7) {
+            background: #05c5f5;
+            left: 300px;
+            border-radius: 50px 0px 50px 0px;
+            transform-origin: bottom left;
+        }
+
+        .petals>div:nth-child(2) {
+            z-index: 5;
+            background: #05c5f5;
+            top: 218px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom2 3s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(3) {
+            z-index: 4;
+            background: #05c5f5;
+            top: 218px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom3 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(4) {
+            z-index: 3;
+            background: #05c5f5;
+            top: 213px;
+            height: 135px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom4 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(5) {
+            z-index: 2;
+            background: #05c5f5;
+            top: 213px;
+            height: 135px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .5);
+            animation: bloom5 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(6) {
+            z-index: 1;
+            background: #05c5f5;
+            top: 200px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .3);
+            animation: bloom6 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .petals>div:nth-child(7) {
+            z-index: 0;
+            background: #05c5f5;
+            top: 200px;
+            height: 130px;
+            box-shadow: 0px 0px 60px rgba(245, 148, 184, .3);
+            animation: bloom7 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+            animation-fill-mode: forwards;
+        }
+
+        .deadPetals>div {
+            position: absolute;
+            background: #05c5f5;
+            width: 20px;
+            height: 15px;
+            top: 200px;
+            border-radius: 0px 30px 0px 30px;
+            box-shadow: 0px 0px 30px rgba(245, 148, 184, .5);
+            transition: all 0.5s ease-out;
+        }
+
+
+        .leaves>div:nth-last-child(1) {
+            position: absolute;
+            width: 55px;
+            height: 30px;
+            background: #338f37;
+            top: 334px;
+            left: 278px;
+            border-radius: 100px;
+        }
+.deadPetals>div:nth-child(1) {
+    left: 260px;               /* izquierda */
+    animation: fallingLeft 6s linear infinite;
+}
+
+.deadPetals>div:nth-child(2) {
+    left: 340px;               /* derecha */
+    animation: fallingRight 6s 1s linear infinite;
+}
+
+.deadPetals>div:nth-child(3) {
+    left: 250px;               /* izquierda */
+    animation: fallingLeft 6s 2s linear infinite;
+}
+
+.deadPetals>div:nth-child(4) {
+    left: 350px;               /* derecha */
+    animation: fallingRight 6s 3s linear infinite;
+}
+        .leaves>div:nth-child(1) {
+            position: absolute;
+            width: 15px;
+            height: 390px;
+            background: #054c05;
+            top: 308px;
+            left: 300px;
+            border-radius: 0 0 100px 100px;
+        }
+
+        .leaves>div:nth-child(2) {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            top: 53px;
+            border-radius: 10px 80px 40px 80px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(-30deg);
+            top: 412px;
+            left: 254px;
+            box-shadow: inset 10px 10px #066406;
+        }
+
+        .leaves>div:nth-child(3) {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            top: 53px;
+            border-radius: 80px 1px 80px 40px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(30deg);
+            top: 360px;
+            left: 300px;
+            box-shadow: inset -10px 10px #066406;
+        }
+
+        .thorns>div {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 200px;
+        }
+
+        .thorns>div:nth-child(odd) {
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 15px solid #054c05;
+            left: 315px;
+        }
+
+        .thorns>div:nth-child(even) {
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-right: 15px solid #054c05;
+            left: 285px;
+        }
+
+        .thorns>div:nth-child(1) {
+            top: 465px;
+        }
+
+        .thorns>div:nth-child(2) {
+            top: 390px;
+        }
+
+        .thorns>div:nth-child(4) {
+            top: 525px;
+        }
+
+        @keyframes bloom2 {
+            50% {
+                transform: rotate(-90deg);
+                top: 400px;
+                left: 150px;
+            }
+
+            100% {
+                transform: rotate(-60deg);
+                top: 615px;
+                left: 100px;
+                background: #05c5f5;
+                box-shadow: 0px 0px 0px rgba(245, 148, 184, 0);
+            }
+        }
+@keyframes fallingLeft {
+    0% {
+        top: 180px;
+        transform: translateX(0) rotate(-20deg);
+        opacity: 1;
+    }
+    100% {
+        top: 720px;
+        transform: translateX(-40px) rotate(-60deg);
+        opacity: 1;
+    }
+}
+
+@keyframes fallingRight {
+    0% {
+        top: 180px;
+        transform: translateX(0) rotate(20deg);
+        opacity: 1;
+    }
+    100% {
+        top: 720px;
+        transform: translateX(40px) rotate(60deg);
+        opacity: 1;
+    }
+}
+@keyframes bigFallLeft {
+    0% {
+        top: 200px;
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        top: 800px;
+        transform: translateX(-120px) rotate(-120deg);
+        opacity: 1;
+    }
+}
+
+@keyframes bigFallRight {
+    0% {
+        top: 200px;
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        top: 800px;
+        transform: translateX(120px) rotate(120deg);
+        opacity: 1;
+    }
+}
+        @keyframes bloom3 {
+            100% {
+                transform: rotate(50deg);
+            }
+        }
+
+        @keyframes bloom4 {
+            100% {
+                transform: rotate(-25deg);
+            }
+        }
+
+        @keyframes bloom5 {
+            100% {
+                transform: rotate(25deg);
+            }
+        }
+
+        @keyframes bloom6 {
+            100% {
+                transform: rotate(-10deg);
+            }
+        }
+
+        @keyframes bloom7 {
+            100% {
+                transform: rotate(10deg);
+            }
+        }
+
+        @keyframes glowing {
+            50% {
+                background: #05c5f5;
+                box-shadow: 0px 0px 60px rgba(245, 148, 184, 1);
+            }
+        }
+
+        @keyframes falling {
+    0% {
+        top: 200px;
+        opacity: 1;
+        transform: rotate(-30deg);
+    }
+
+    70% {
+        top: 600px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 200px;
+        opacity: 1;
+    }
+}
+.texto {
+    position: fixed;
+    top: 60%;              /* baja el texto */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 40px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 999;
+    text-align: center;
+    width: 500px;
+}
+.show {
+    opacity: 1;
+    visibility: visible;
+}
+.deadPetals > div {
+    animation: falling 8s linear infinite;
+}
+.fall-left {
+    animation: bigFallLeft 7s linear infinite !important;
+}
+
+.fall-right {
+    animation: bigFallRight 7s 1s linear infinite !important;
+}
+.hint {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 32px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.hint.show {
+    opacity: 1;
+}
+.start-text {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 36px;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .start-text.hide {
+            opacity: 0;
+        }
+        .music-btn{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+
+    font-size: 40px;      /* tamaño del icono */
+    padding: 20px 30px;   /* tamaño del botón */
+    border-radius: 20px;
+    border: none;
+
+    background: #f50569;
+    color: white;
+
+    cursor: pointer;
+    box-shadow: 0 0 20px #e21304;
+}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="glass">
+            <div class="shine"></div>
+        </div>
+        <div class="thorns">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="leaves">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="petals">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="deadPetals">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="texto" id="loveText">I LOVE YOU ❤️</div>
+<script>
+const rose = document.querySelector('.petals');
+const text = document.getElementById('loveText');
+
+const messages = [
+    "Hola",
+    "Desde un tiempo e querido contarte algo⏳",
+    "Que nunca me anime a decir por que?",
+    "Por miedo? por olvidar algo? aun no lo se",
+    "Pero lo que si se es que un dia empece sentir que",
+    "💞 Me gustas 💞",
+    "Se que es repentino pero mi corazon ya no lo pudo guardar",
+    "No se que pasara en el futuro pero lo que si se es que nada esta escrito",
+"❤️Y si algo pasa espero poder amar y recordar con amor🩵"
+];
+
+let index = 0;
+let running = false;
+let finished = false;
+
+rose.addEventListener('click', () => {
+
+    // 🚫 si está mostrando textos, no hace nada
+    if (running) return;
+
+    // 🔁 si ya terminó, reinicia
+    if (finished) {
+        index = 0;
+        finished = false;
+    }
+
+    running = true;
+
+    const showNextText = () => {
+        text.textContent = messages[index];
+        text.classList.add('show');
+
+        setTimeout(() => {
+            text.classList.remove('show');
+            index++;
+
+            if (index < messages.length) {
+                setTimeout(showNextText, 400); // pequeña pausa
+            } else {
+                // ✅ terminó toda la secuencia
+                running = false;
+                finished = true;
+            }
+        }, 3600); // visible ~4s
+    };
+
+    showNextText();
+});
+</script>
+</script>
+<audio id="bgMusic" loop preload="auto">
+    <source src="LOVE.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const bgMusic = document.getElementById('bgMusic');
+let musicStarted = false;
+
+document.addEventListener('touchstart', startMusic);
+document.addEventListener('click', startMusic);
+
+function startMusic() {
+    if (!musicStarted) {
+        bgMusic.volume = 0.5;
+        bgMusic.play();
+        musicStarted = true;
+    }
+}
+</script>
+<button class="music-btn" onclick="document.getElementById('bgMusic').play()">
+🩵🩵🩵
+</button>
+<body>
+
+    <!-- TEXTO INICIAL -->
+    <div id="startText" class="start-text">
+        Toca los corazones y recolecta la flor
+    </div>
+
+    <!-- TU CONTENIDO EXISTENTE -->
+    <div class="container">
+        ...
+    </div>
+</body>
+    <script>
+        const startText = document.getElementById('startText');
+
+        // Desaparece después de 5 segundos
+        setTimeout(() => {
+            startText.classList.add('hide');
+        }, 5000);
+    </script>
+
+</body>
+</html>
